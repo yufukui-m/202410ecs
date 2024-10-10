@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"math/rand"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 )
@@ -24,6 +25,16 @@ func main() {
 	r.GET("/hello/:name", func(c *gin.Context) {
 		name := c.Param("name")
 		c.String(http.StatusOK, "Hello %s", name)
+	})
+
+	r.GET("/image", func(c *gin.Context) {
+		data, err := os.ReadFile("./file/test.jpg")
+		if err != nil {
+			c.String(http.StatusInternalServerError, "error")
+			return
+		}
+		c.Header("Content-Type", "image/jpeg")
+		_, _ = c.Writer.Write(data)
 	})
 
 	r.Run() // listen and serve on 0.0.0.0:8080
