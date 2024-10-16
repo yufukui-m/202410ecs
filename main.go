@@ -37,5 +37,12 @@ func main() {
 		_, _ = c.Writer.Write(data)
 	})
 
+	r.GET("/wait/:sec", func(c *gin.Context) {
+		secStr := c.Param("sec")
+		sec, _ := strconv.Atoi(secStr)
+		time.Sleep(time.Duration(sec) * time.Second)
+		c.String(http.StatusOK, "waited %d second(s)", sec)
+	})
+
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
