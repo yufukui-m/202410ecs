@@ -1,4 +1,4 @@
-FROM cimg/go:1.23
+FROM --platform=linux/x86_64 cimg/go:1.23
 
 COPY ./ .
 RUN go build -o ./app ./main.go
