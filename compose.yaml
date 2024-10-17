@@ -1,0 +1,10 @@
+services:
+  app:
+    image: cimg/go:1.23
+    command: go run ./main.go
+    volumes:
+      - type: bind
+        source: ./
+        target: /home/circleci/project
+    ports:
+      - "8080:8080"
